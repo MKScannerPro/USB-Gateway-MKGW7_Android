@@ -13,7 +13,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 
 import com.moko.mkgw7.BuildConfig;
-import com.moko.mkgw7.activity.RemoteMain20DActivity;
+import com.moko.mkgw7.activity.MkGw7MainActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class Utils {
 
 
     public static File getFile(String fileName) {
-        String devicePath = RemoteMain20DActivity.PATH_LOGCAT + File.separator + fileName;
+        String devicePath = MkGw7MainActivity.PATH_LOGCAT + File.separator + fileName;
         File deviceListFile = new File(devicePath);
         if (!deviceListFile.exists()) {
             try {

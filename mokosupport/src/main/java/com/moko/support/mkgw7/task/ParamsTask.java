@@ -27,74 +27,11 @@ public class ParamsTask extends OrderTask {
     }
 
     public void setData(ParamsKeyEnum key) {
-        switch (key) {
-            case KEY_PASSWORD:
-            case KEY_RESET_PARAMS_TYPE:
-            case KEY_DEVICE_NAME:
-            case KEY_PRODUCT_MODEL:
-            case KEY_HARDWARE_VERSION:
-            case KEY_MANUFACTURER:
-            case KEY_BLE_MAC:
-            case KEY_WIFI_MAC:
-            case KEY_WIFI_FIRMWARE_VERSION:
-            case KEY_WIFI_SOFTWARE_VERSION:
-            case KEY_BLE_FIRMWARE_VERSION:
-                // ====TEST
-            case KEY_PRODUCT_TEST_BUTTON_STATE:
-            case KEY_PRODUCT_TEST_DEVICE_STATE:
-                // ====
-            case KEY_INDICATOR_SWITCH:
-            case KEY_NTP_ENABLE:
-            case KEY_NTP_URL:
-            case KEY_NTP_TIME_ZONE:
-                // MQTT
-            case KEY_MQTT_HOST:
-            case KEY_MQTT_PORT:
-            case KEY_MQTT_CLIENT_ID:
-            case KEY_MQTT_CLEAN_SESSION:
-            case KEY_MQTT_KEEP_ALIVE:
-            case KEY_MQTT_QOS:
-            case KEY_MQTT_SUBSCRIBE_TOPIC:
-            case KEY_MQTT_PUBLISH_TOPIC:
-            case KEY_MQTT_LWT_ENABLE:
-            case KEY_MQTT_LWT_QOS:
-            case KEY_MQTT_LWT_RETAIN:
-            case KEY_MQTT_LWT_TOPIC:
-            case KEY_MQTT_LWT_PAYLOAD:
-            case KEY_MQTT_CONNECT_MODE:
-                // WIFI
-            case KEY_WIFI_SSID:
-            case KEY_WIFI_PASSWORD:
-            case KEY_WIFI_DHCP:
-            case KEY_WIFI_IP_INFO:
-            case KEY_COUNTRY_BRAND:
-                // OTHER
-            case KEY_FILTER_RSSI:
-            case KEY_FILTER_RELATIONSHIP:
-            case KEY_FILTER_MAC_PRECISE:
-            case KEY_FILTER_MAC_REVERSE:
-            case KEY_FILTER_MAC_RULES:
-            case KEY_FILTER_NAME_PRECISE:
-            case KEY_FILTER_NAME_REVERSE:
-            case KEY_I_BEACON_SWITCH:
-            case KEY_I_BEACON_MAJOR:
-            case KEY_I_BEACON_MINOR:
-            case KEY_I_BEACON_UUID:
-            case KEY_I_BEACON_AD_INTERVAL:
-            case KEY_I_BEACON_TX_POWER:
-                createGetConfigData(key.getParamsKey());
-                break;
-        }
+        createGetConfigData(key.getParamsKey());
     }
 
     public void setData(ParamsLongKeyEnum key) {
-        switch (key) {
-            case KEY_MQTT_USERNAME:
-            case KEY_MQTT_PASSWORD:
-            case KEY_FILTER_NAME_RULES:
-                createGetLongConfigData(key.getParamsKey());
-                break;
-        }
+        createGetLongConfigData(key.getParamsKey());
     }
 
     private void createGetLongConfigData(int paramsKey) {
@@ -471,21 +408,6 @@ public class ParamsTask extends OrderTask {
         response.responseValue = data;
     }
 
-
-    public void setWifiSSID(String SSID) {
-        byte[] dataBytes = SSID.getBytes();
-        int length = dataBytes.length;
-        data = new byte[length + 4];
-        data[0] = (byte) 0xED;
-        data[1] = (byte) 0x01;
-        data[2] = (byte) ParamsKeyEnum.KEY_WIFI_SSID.getParamsKey();
-        data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
-        response.responseValue = data;
-    }
-
     public void setWifiPassword(String password) {
         byte[] dataBytes = password.getBytes();
         int length = dataBytes.length;
@@ -497,57 +419,6 @@ public class ParamsTask extends OrderTask {
         for (int i = 0; i < dataBytes.length; i++) {
             data[i + 4] = dataBytes[i];
         }
-        response.responseValue = data;
-    }
-
-    public void setCountryBrand(@IntRange(from = 0, to = 21) int country) {
-        response.responseValue = data = new byte[]{
-                (byte) 0xED,
-                (byte) 0x01,
-                (byte) ParamsKeyEnum.KEY_COUNTRY_BRAND.getParamsKey(),
-                (byte) 0x01,
-                (byte) country
-        };
-    }
-
-    public void setWifiDHCP(@IntRange(from = 0, to = 1) int enable) {
-        data = new byte[]{
-                (byte) 0xED,
-                (byte) 0x01,
-                (byte) ParamsKeyEnum.KEY_WIFI_DHCP.getParamsKey(),
-                (byte) 0x01,
-                (byte) enable
-        };
-        response.responseValue = data;
-    }
-
-    public void setWifiIPInfo(String ip, String sbNetworkMask, String gateway, String dns) {
-        byte[] ipBytes = MokoUtils.hex2bytes(ip);
-        byte[] sbNetworkMaskBytes = MokoUtils.hex2bytes(sbNetworkMask);
-        byte[] gatewayBytes = MokoUtils.hex2bytes(gateway);
-        byte[] dnsBytes = MokoUtils.hex2bytes(dns);
-        data = new byte[]{
-                (byte) 0xED,
-                (byte) 0x01,
-                (byte) ParamsKeyEnum.KEY_WIFI_IP_INFO.getParamsKey(),
-                (byte) 0x10,
-                (byte) ipBytes[0],
-                (byte) ipBytes[1],
-                (byte) ipBytes[2],
-                (byte) ipBytes[3],
-                (byte) sbNetworkMaskBytes[0],
-                (byte) sbNetworkMaskBytes[1],
-                (byte) sbNetworkMaskBytes[2],
-                (byte) sbNetworkMaskBytes[3],
-                (byte) gatewayBytes[0],
-                (byte) gatewayBytes[1],
-                (byte) gatewayBytes[2],
-                (byte) gatewayBytes[3],
-                (byte) dnsBytes[0],
-                (byte) dnsBytes[1],
-                (byte) dnsBytes[2],
-                (byte) dnsBytes[3],
-        };
         response.responseValue = data;
     }
 
@@ -793,7 +664,7 @@ public class ParamsTask extends OrderTask {
     private int dataOrigin;
     private byte[] dataBytes;
     private String dataBytesStr = "";
-    private static final int DATA_LENGTH_MAX = 238;
+    private static final int DATA_LENGTH_MAX = 232;
 
     @Override
     public boolean parseValue(byte[] value) {
@@ -955,5 +826,145 @@ public class ParamsTask extends OrderTask {
                 (byte) 0x01,
                 (byte) txPower
         };
+    }
+
+    public void setIBeaconRssi1M(@IntRange(from = -100, to = 0) int rssi1M) {
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_I_BEACON_RSSI1M.getParamsKey(),
+                (byte) 0x01,
+                (byte) rssi1M
+        };
+    }
+
+    public void setWifiSecurityType(@IntRange(from = 0, to = 1) int type) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_WIFI_SECURITY_TYPE.getParamsKey(),
+                (byte) 0x01,
+                (byte) type
+        };
+        response.responseValue = data;
+    }
+
+    public void setWifiSSID(String SSID) {
+        byte[] dataBytes = SSID.getBytes();
+        int length = dataBytes.length;
+        data = new byte[length + 4];
+        data[0] = (byte) 0xED;
+        data[1] = (byte) 0x01;
+        data[2] = (byte) ParamsKeyEnum.KEY_WIFI_SSID.getParamsKey();
+        data[3] = (byte) length;
+        for (int i = 0; i < dataBytes.length; i++) {
+            data[i + 4] = dataBytes[i];
+        }
+        response.responseValue = data;
+    }
+
+    public void setWifiEapType(@IntRange(from = 0, to = 2) int type) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_WIFI_EAP_TYPE.getParamsKey(),
+                (byte) 0x01,
+                (byte) type
+        };
+        response.responseValue = data;
+    }
+
+    public void setWifiEapUsername(String username) {
+        byte[] dataBytes = username.getBytes();
+        int length = dataBytes.length;
+        data = new byte[length + 4];
+        data[0] = (byte) 0xED;
+        data[1] = (byte) 0x01;
+        data[2] = (byte) ParamsKeyEnum.KEY_WIFI_EAP_USERNAME.getParamsKey();
+        data[3] = (byte) length;
+        for (int i = 0; i < dataBytes.length; i++) {
+            data[i + 4] = dataBytes[i];
+        }
+        response.responseValue = data;
+    }
+
+    public void setWifiEapPassword(String password) {
+        byte[] dataBytes = password.getBytes();
+        int length = dataBytes.length;
+        data = new byte[length + 4];
+        data[0] = (byte) 0xED;
+        data[1] = (byte) 0x01;
+        data[2] = (byte) ParamsKeyEnum.KEY_WIFI_EAP_PASSWORD.getParamsKey();
+        data[3] = (byte) length;
+        for (int i = 0; i < dataBytes.length; i++) {
+            data[i + 4] = dataBytes[i];
+        }
+        response.responseValue = data;
+    }
+
+    public void setWifiEapDomainId(String domainId) {
+        byte[] dataBytes = domainId.getBytes();
+        int length = dataBytes.length;
+        data = new byte[length + 4];
+        data[0] = (byte) 0xED;
+        data[1] = (byte) 0x01;
+        data[2] = (byte) ParamsKeyEnum.KEY_WIFI_EAP_DOMAIN_ID.getParamsKey();
+        data[3] = (byte) length;
+        for (int i = 0; i < dataBytes.length; i++) {
+            data[i + 4] = dataBytes[i];
+        }
+        response.responseValue = data;
+    }
+
+    public void setWifiEapVerifyServiceEnable(@IntRange(from = 0, to = 1) int enable) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_WIFI_EAP_VERIFY_SERVICE_ENABLE.getParamsKey(),
+                (byte) 0x01,
+                (byte) enable
+        };
+        response.responseValue = data;
+    }
+
+    public void setNetworkDHCP(@IntRange(from = 0, to = 1) int enable) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_NETWORK_DHCP.getParamsKey(),
+                (byte) 0x01,
+                (byte) enable
+        };
+        response.responseValue = data;
+    }
+
+    public void setNetworkIPInfo(String ip, String sbNetworkMask, String gateway, String dns) {
+        byte[] ipBytes = MokoUtils.hex2bytes(ip);
+        byte[] sbNetworkMaskBytes = MokoUtils.hex2bytes(sbNetworkMask);
+        byte[] gatewayBytes = MokoUtils.hex2bytes(gateway);
+        byte[] dnsBytes = MokoUtils.hex2bytes(dns);
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_NETWORK_IP_INFO.getParamsKey(),
+                (byte) 0x10,
+                (byte) ipBytes[0],
+                (byte) ipBytes[1],
+                (byte) ipBytes[2],
+                (byte) ipBytes[3],
+                (byte) sbNetworkMaskBytes[0],
+                (byte) sbNetworkMaskBytes[1],
+                (byte) sbNetworkMaskBytes[2],
+                (byte) sbNetworkMaskBytes[3],
+                (byte) gatewayBytes[0],
+                (byte) gatewayBytes[1],
+                (byte) gatewayBytes[2],
+                (byte) gatewayBytes[3],
+                (byte) dnsBytes[0],
+                (byte) dnsBytes[1],
+                (byte) dnsBytes[2],
+                (byte) dnsBytes[3],
+        };
+        response.responseValue = data;
     }
 }

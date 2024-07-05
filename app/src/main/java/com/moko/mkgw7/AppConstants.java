@@ -14,7 +14,7 @@ public class AppConstants {
     public static final String ACTION_DELETE_DEVICE = "com.moko.mkremotegw.action.ACTION_DELETE_DEVICE";
     public static final String ACTION_DEVICE_STATE = "com.moko.mkremotegw.action.ACTION_DEVICE_STATE";
     // sp
-    public static final String SP_NAME = "sp_name_remote_gw02";
+    public static final String SP_NAME = "sp_name_mkgw7";
     //    public static final String SP_KEY_MQTT_CONFIG = "SP_KEY_MQTT_CONFIG";
     public static final String SP_KEY_MQTT_CONFIG_APP = "SP_KEY_MQTT_CONFIG_APP";
 
@@ -72,8 +72,4 @@ public class AppConstants {
     public static final int REQUEST_CODE_SELECT_CA = 140;
     public static final int REQUEST_CODE_SELECT_CLIENT_KEY = 141;
     public static final int REQUEST_CODE_SELECT_CLIENT_CERT = 142;
-
-    public static final int PERMISSION_REQUEST_CODE = 1;
-    // result_code
-    public static final int RESULT_CONN_DISCONNECTED = 2;
 }

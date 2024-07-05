@@ -50,14 +50,8 @@ public abstract class BaseActivity<VM extends ViewBinding> extends FragmentActiv
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        XLog.i("onConfigurationChanged...");
-        finish();
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this);
     }
 
     // 记录上次页面控件点击时间,屏蔽无效点击事件

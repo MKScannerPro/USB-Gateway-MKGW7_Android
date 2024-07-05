@@ -14,7 +14,7 @@ import android.provider.MediaStore;
 
 import com.elvishew.xlog.XLog;
 import com.moko.mkgw7.BuildConfig;
-import com.moko.mkgw7.activity.RemoteMain20DActivity;
+import com.moko.mkgw7.activity.MkGw7MainActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,7 +48,7 @@ public class IOUtils {
         boolean exist = isSdCardExist();
         String sdpath = "";
         if (exist) {
-            sdpath = RemoteMain20DActivity.PATH_LOGCAT;
+            sdpath = MkGw7MainActivity.PATH_LOGCAT;
         }
         return sdpath;
 
@@ -64,7 +64,7 @@ public class IOUtils {
         String filepath = "";
         File file;
         // 优先保存到SD卡中
-        file = new File(RemoteMain20DActivity.PATH_LOGCAT, CRASH_FILE);
+        file = new File(MkGw7MainActivity.PATH_LOGCAT, CRASH_FILE);
         try {
             if (file.exists()) {
                 filepath = file.getAbsolutePath();
@@ -85,7 +85,7 @@ public class IOUtils {
      */
     public static String getFilePath(String fileName) {
         String filepath = "";
-        File file = new File(RemoteMain20DActivity.PATH_LOGCAT, fileName);
+        File file = new File(MkGw7MainActivity.PATH_LOGCAT, fileName);
         try {
             if (file.exists()) {
                 filepath = file.getAbsolutePath();

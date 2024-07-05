@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MKScannerPro</string>
+    <string name="app_name">MKGW7</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
     <string name="save">Save</string>
@@ -52,15 +52,15 @@
     <string name="device_info_wifi_mac">WIFI MAC</string>
     <string name="device_info_bt_mac">BT MAC</string>
 
-    <string name="permission_storage_close_content">Please find it in cellphone setting- permission, and allow MKRemoteGW20D use the Storage and location permission</string>
-    <string name="permission_ble_close_content">Please find it in cellphone setting- permission, and allow MKRemoteGW20D use the bluetooth and location permission</string>
+    <string name="permission_storage_close_content">Please find it in cellphone setting- permission, and allow MKGW7 use the Storage and location permission</string>
+    <string name="permission_ble_close_content">Please find it in cellphone setting- permission, and allow MKGW7 use the bluetooth and location permission</string>
     <string name="permission_open">OK</string>
-    <string name="permission_storage_need_content">MKRemoteGW20D requires access to Storage and location permission. If the permissions are not on, MKRemoteGW20D cannot be used normally.</string>
+    <string name="permission_storage_need_content">MKGW7 requires access to Storage and location permission. If the permissions are not on, MKGW7 cannot be used normally.</string>
     <string name="location_need_title">Turn on Location permission</string>
-    <string name="location_need_content">After that, MKRemoteGW20D could search and connect with the device</string>
-    <string name="permission_location_close_content">Please find it in cellphone setting- permission, and allow MKRemoteGW20D use the Location permission</string>
-    <string name="permission_location_need_content">MKRemoteGW20D requires access to Location permission. If the permissions are not on, MKRemoteGW20D cannot be used normally.</string>
-    <string name="permission_ble_content">MKRemoteGW20D requires access to bluetooth scan contract and location permission. If the permissions are not on, MKRemoteGW20D cannot be used normally.</string>
+    <string name="location_need_content">After that, MKGW7 could search and connect with the device</string>
+    <string name="permission_location_close_content">Please find it in cellphone setting- permission, and allow MKGW7 use the Location permission</string>
+    <string name="permission_location_need_content">MKGW7 requires access to Location permission. If the permissions are not on, MKGW7 cannot be used normally.</string>
+    <string name="permission_ble_content">MKGW7 requires access to bluetooth scan contract and location permission. If the permissions are not on, MKGW7 cannot be used normally.</string>
     
     
     <string name="version_info">Version:%s</string>

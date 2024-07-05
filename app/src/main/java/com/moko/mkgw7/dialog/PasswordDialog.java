@@ -3,7 +3,6 @@ package com.moko.mkgw7.dialog;
 import android.content.Context;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -12,10 +11,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.moko.mkgw7.R;
-import com.moko.mkgw7.databinding.DialogPasswordRemoteBinding;
+import com.moko.mkgw7.databinding.DialogPasswordMkgw7Binding;
 import com.moko.mkgw7.utils.ToastUtils;
 
-public class PasswordDialog extends MokoBaseDialog<DialogPasswordRemoteBinding> {
+public class PasswordDialog extends MokoBaseDialog<DialogPasswordMkgw7Binding> {
     public static final String TAG = PasswordDialog.class.getSimpleName();
 
     private final String FILTER_ASCII = "[ -~]*";
@@ -24,21 +23,17 @@ public class PasswordDialog extends MokoBaseDialog<DialogPasswordRemoteBinding> 
 
 
     @Override
-    protected DialogPasswordRemoteBinding getViewBind(LayoutInflater inflater, ViewGroup container) {
-        return DialogPasswordRemoteBinding.inflate(inflater, container, false);
+    protected DialogPasswordMkgw7Binding getViewBind(LayoutInflater inflater, ViewGroup container) {
+        return DialogPasswordMkgw7Binding.inflate(inflater, container, false);
     }
 
     @Override
     protected void onCreateView() {
-        InputFilter filter = new InputFilter() {
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                if (!(source + "").matches(FILTER_ASCII)) {
-                    return "";
-                }
-
-                return null;
+        InputFilter filter = (source, start, end, dest, dstart, dend) -> {
+            if (!(source + "").matches(FILTER_ASCII)) {
+                return "";
             }
+            return null;
         };
         mBind.etPassword.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10), filter});
         mBind.etPassword.addTextChangedListener(new TextWatcher() {

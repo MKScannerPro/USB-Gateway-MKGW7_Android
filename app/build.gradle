@@ -50,6 +50,7 @@ android {
 
     lintOptions {
         abortOnError false
+        disable 'SetTextI18n'
     }
 
     sourceSets {
