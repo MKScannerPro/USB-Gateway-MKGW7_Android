@@ -20,7 +20,7 @@ import com.moko.mkgw7.R;
 import com.moko.mkgw7.activity.MkGw7MainActivity;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityModifySettingsMkgw7Binding;
-import com.moko.mkgw7.db.DBTools20D;
+import com.moko.mkgw7.db.DBTools;
 import com.moko.mkgw7.dialog.AlertMessageDialog;
 import com.moko.mkgw7.entity.MQTTConfig;
 import com.moko.mkgw7.entity.MokoDevice;
@@ -134,7 +134,7 @@ public class ModifySettingsActivity extends BaseActivity<ActivityModifySettingsM
                 mqttConfig.lwtTopic =  mqttDeviceConfig.lwtTopic;
                 mqttConfig.lwtPayload = mqttDeviceConfig.lwtPayload;
                 mMokoDevice.mqttInfo = new Gson().toJson(mqttConfig, MQTTConfig.class);
-                DBTools20D.getInstance(this).updateDevice(mMokoDevice);
+                DBTools.getInstance(getApplicationContext()).updateDevice(mMokoDevice);
                 mBind.tvName.postDelayed(() -> {
                     dismissLoadingProgressDialog();
                     mHandler.removeMessages(0);

@@ -30,7 +30,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FilterTLMActivity extends BaseActivity<ActivityFilterTlmMkgw7Binding> {
@@ -146,7 +145,7 @@ public class FilterTLMActivity extends BaseActivity<ActivityFilterTlmMkgw7Bindin
     public void onTLMVersion(View view) {
         if (isWindowLocked()) return;
         BottomDialog dialog = new BottomDialog();
-        dialog.setDatas(new ArrayList<>(Arrays.asList(mValues)), mSelected);
+        dialog.setDatas(Arrays.asList(mValues), mSelected);
         dialog.setListener(value -> {
             mSelected = value;
             mBind.tvTlmVersion.setText(mValues[value]);

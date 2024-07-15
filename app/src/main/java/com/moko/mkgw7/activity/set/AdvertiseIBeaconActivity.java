@@ -93,7 +93,7 @@ public class AdvertiseIBeaconActivity extends BaseActivity<ActivityAdvertiseIbea
         mBind.tvTxPowerVal.setOnClickListener(v -> {
             if (isWindowLocked()) return;
             BottomDialog dialog = new BottomDialog();
-            dialog.setDatas(new ArrayList<>(Arrays.asList(txPowerArr)), mSelected);
+            dialog.setDatas(Arrays.asList(txPowerArr), mSelected);
             dialog.setListener(value -> {
                 mSelected = value;
                 mBind.tvTxPowerVal.setText(txPowerArr[value]);

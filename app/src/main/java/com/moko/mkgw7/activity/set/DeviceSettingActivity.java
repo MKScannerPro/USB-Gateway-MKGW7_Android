@@ -22,7 +22,7 @@ import com.moko.mkgw7.activity.DataReportTimeoutActivity;
 import com.moko.mkgw7.activity.MkGw7MainActivity;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityDeviceSettingMkgw7Binding;
-import com.moko.mkgw7.db.DBTools20D;
+import com.moko.mkgw7.db.DBTools;
 import com.moko.mkgw7.dialog.AlertMessageDialog;
 import com.moko.mkgw7.dialog.CustomDialog;
 import com.moko.mkgw7.entity.MQTTConfig;
@@ -122,7 +122,7 @@ public class DeviceSettingActivity extends BaseActivity<ActivityDeviceSettingMkg
                         XLog.e(e);
                     }
                 }
-                DBTools20D.getInstance(getApplicationContext()).deleteDevice(mMokoDevice);
+                DBTools.getInstance(getApplicationContext()).deleteDevice(mMokoDevice);
                 EventBus.getDefault().post(new DeviceDeletedEvent(mMokoDevice.id));
                 mBind.tvName.postDelayed(() -> {
                     dismissLoadingProgressDialog();
@@ -140,7 +140,7 @@ public class DeviceSettingActivity extends BaseActivity<ActivityDeviceSettingMkg
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDeviceModifyNameEvent(DeviceModifyNameEvent event) {
         // 修改了设备名称
-        MokoDevice device = DBTools20D.getInstance(getApplicationContext()).selectDevice(mMokoDevice.mac);
+        MokoDevice device = DBTools.getInstance(getApplicationContext()).selectDevice(mMokoDevice.mac);
         mMokoDevice.name = device.name;
         mBind.tvName.setText(mMokoDevice.name);
     }
@@ -172,7 +172,7 @@ public class DeviceSettingActivity extends BaseActivity<ActivityDeviceSettingMkg
                         return;
                     }
                     mMokoDevice.name = name;
-                    DBTools20D.getInstance(getApplicationContext()).updateDevice(mMokoDevice);
+                    DBTools.getInstance(getApplicationContext()).updateDevice(mMokoDevice);
                     EventBus.getDefault().post(new DeviceModifyNameEvent(mMokoDevice.mac));
                     etDeviceName.setText(name);
                     dialog12.dismiss();

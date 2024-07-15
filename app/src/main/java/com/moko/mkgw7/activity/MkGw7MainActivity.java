@@ -28,7 +28,7 @@ import com.moko.mkgw7.activity.set.ModifySettingsActivity;
 import com.moko.mkgw7.adapter.DeviceAdapter;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityMainMkgw7Binding;
-import com.moko.mkgw7.db.DBTools20D;
+import com.moko.mkgw7.db.DBTools;
 import com.moko.mkgw7.dialog.AlertMessageDialog;
 import com.moko.mkgw7.entity.MQTTConfig;
 import com.moko.mkgw7.entity.MokoDevice;
@@ -99,7 +99,7 @@ public class MkGw7MainActivity extends BaseActivity<ActivityMainMkgw7Binding> im
         }
         MokoSupport.getInstance().init(getApplicationContext());
         MQTTSupport.getInstance().init(getApplicationContext());
-        devices = DBTools20D.getInstance(this).selectAllDevice();
+        devices = DBTools.getInstance(getApplicationContext()).selectAllDevice();
         adapter = new DeviceAdapter();
         adapter.openLoadAnimation();
         adapter.replaceData(devices);
@@ -188,7 +188,7 @@ public class MkGw7MainActivity extends BaseActivity<ActivityMainMkgw7Binding> im
         if (!devices.isEmpty()) {
             for (MokoDevice device : devices) {
                 if (device.mac.equals(event.getMac())) {
-                    device.name = DBTools20D.getInstance(this).selectDevice(device.mac).name;
+                    device.name = DBTools.getInstance(getApplicationContext()).selectDevice(device.mac).name;
                     break;
                 }
             }
@@ -216,7 +216,7 @@ public class MkGw7MainActivity extends BaseActivity<ActivityMainMkgw7Binding> im
             if (ModifyNameActivity.TAG.equals(from)
                     || DeviceSettingActivity.TAG.equals(from)) {
                 devices.clear();
-                devices.addAll(DBTools20D.getInstance(this).selectAllDevice());
+                devices.addAll(DBTools.getInstance(getApplicationContext()).selectAllDevice());
                 if (!TextUtils.isEmpty(mac)) {
                     for (final MokoDevice device : devices) {
                         if (mac.equals(device.mac)) {
@@ -246,7 +246,7 @@ public class MkGw7MainActivity extends BaseActivity<ActivityMainMkgw7Binding> im
             }
             if (ModifySettingsActivity.TAG.equals(from)) {
                 if (!TextUtils.isEmpty(mac)) {
-                    MokoDevice mokoDevice = DBTools20D.getInstance(this).selectDevice(mac);
+                    MokoDevice mokoDevice = DBTools.getInstance(getApplicationContext()).selectDevice(mac);
                     for (final MokoDevice device : devices) {
                         if (mac.equals(device.mac)) {
                             if (TextUtils.isEmpty(mAppMqttConfig.topicSubscribe)) {
@@ -352,7 +352,7 @@ public class MkGw7MainActivity extends BaseActivity<ActivityMainMkgw7Binding> im
                 }
             }
             XLog.i(String.format("删除设备:%s", mokoDevice.name));
-            DBTools20D.getInstance(MkGw7MainActivity.this).deleteDevice(mokoDevice);
+            DBTools.getInstance(getApplicationContext()).deleteDevice(mokoDevice);
             EventBus.getDefault().post(new DeviceDeletedEvent(mokoDevice.id));
             devices.remove(mokoDevice);
             this.adapter.replaceData(devices);

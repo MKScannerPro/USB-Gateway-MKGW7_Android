@@ -30,7 +30,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DuplicateDataFilterActivity extends BaseActivity<ActivityDuplicateDataFilterMkgw7Binding> {
@@ -137,7 +136,7 @@ public class DuplicateDataFilterActivity extends BaseActivity<ActivityDuplicateD
 
     public void onFilterBy(View view) {
         BottomDialog dialog = new BottomDialog();
-        dialog.setDatas(new ArrayList<>(Arrays.asList(mValues)), mSelected);
+        dialog.setDatas(Arrays.asList(mValues), mSelected);
         dialog.setListener(value -> {
             mSelected = value;
             mBind.tvFilerBy.setText(mValues[value]);

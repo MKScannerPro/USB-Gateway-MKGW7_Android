@@ -17,7 +17,7 @@ import com.moko.mkgw7.activity.set.DeviceSettingActivity;
 import com.moko.mkgw7.adapter.ScanDeviceAdapter;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityDetailMkgw7Binding;
-import com.moko.mkgw7.db.DBTools20D;
+import com.moko.mkgw7.db.DBTools;
 import com.moko.mkgw7.entity.MQTTConfig;
 import com.moko.mkgw7.entity.MokoDevice;
 import com.moko.mkgw7.utils.SPUtiles;
@@ -236,7 +236,7 @@ public class DeviceDetailActivity extends BaseActivity<ActivityDetailMkgw7Bindin
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDeviceModifyNameEvent(DeviceModifyNameEvent event) {
         // 修改了设备名称
-        MokoDevice device = DBTools20D.getInstance(getApplicationContext()).selectDevice(mMokoDevice.mac);
+        MokoDevice device = DBTools.getInstance(getApplicationContext()).selectDevice(mMokoDevice.mac);
         mMokoDevice.name = device.name;
         mBind.tvDeviceName.setText(mMokoDevice.name);
     }

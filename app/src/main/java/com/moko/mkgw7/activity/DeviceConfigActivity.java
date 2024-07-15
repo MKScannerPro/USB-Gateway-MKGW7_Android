@@ -25,7 +25,7 @@ import com.moko.mkgw7.R;
 import com.moko.mkgw7.activity.set.AdvertiseIBeaconActivity;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityDeviceConfigMkgw7Binding;
-import com.moko.mkgw7.db.DBTools20D;
+import com.moko.mkgw7.db.DBTools;
 import com.moko.mkgw7.dialog.CustomDialog;
 import com.moko.mkgw7.entity.MQTTConfig;
 import com.moko.mkgw7.entity.MokoDevice;
@@ -158,7 +158,7 @@ public class DeviceConfigActivity extends BaseActivity<ActivityDeviceConfigMkgw7
             // 关闭进度条弹框，保存数据，跳转修改设备名称页面
             mBind.tvName.postDelayed(() -> {
                 dismissConnMqttDialog();
-                MokoDevice mokoDevice = DBTools20D.getInstance(DeviceConfigActivity.this).selectDeviceByMac(mDeviceMqttConfig.staMac);
+                MokoDevice mokoDevice = DBTools.getInstance(getApplicationContext()).selectDeviceByMac(mDeviceMqttConfig.staMac);
                 String mqttConfigStr = new Gson().toJson(mDeviceMqttConfig, MQTTConfig.class);
                 if (mokoDevice == null) {
                     mokoDevice = new MokoDevice();
@@ -170,7 +170,7 @@ public class DeviceConfigActivity extends BaseActivity<ActivityDeviceConfigMkgw7
                     mokoDevice.lwtEnable = mDeviceMqttConfig.lwtEnable ? 1 : 0;
                     mokoDevice.lwtTopic = mDeviceMqttConfig.lwtTopic;
                     mokoDevice.deviceType = mSelectedDeviceType;
-                    DBTools20D.getInstance(DeviceConfigActivity.this).insertDevice(mokoDevice);
+                    DBTools.getInstance(getApplicationContext()).insertDevice(mokoDevice);
                 } else {
                     mokoDevice.name = mDeviceMqttConfig.deviceName;
                     mokoDevice.mac = mDeviceMqttConfig.staMac;
@@ -180,7 +180,7 @@ public class DeviceConfigActivity extends BaseActivity<ActivityDeviceConfigMkgw7
                     mokoDevice.lwtEnable = mDeviceMqttConfig.lwtEnable ? 1 : 0;
                     mokoDevice.lwtTopic = mDeviceMqttConfig.lwtTopic;
                     mokoDevice.deviceType = mSelectedDeviceType;
-                    DBTools20D.getInstance(DeviceConfigActivity.this).updateDevice(mokoDevice);
+                    DBTools.getInstance(getApplicationContext()).updateDevice(mokoDevice);
                 }
                 Intent modifyIntent = new Intent(DeviceConfigActivity.this, ModifyNameActivity.class);
                 modifyIntent.putExtra(AppConstants.EXTRA_KEY_DEVICE, mokoDevice);

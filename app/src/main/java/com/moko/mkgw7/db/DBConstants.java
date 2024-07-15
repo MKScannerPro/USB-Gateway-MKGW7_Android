@@ -1,6 +1,6 @@
 package com.moko.mkgw7.db;
 
-public class DBConstants20D {
+public class DBConstants {
     // 设备
     public static final String TABLE_NAME_DEVICE = "device";
     public static final String DEVICE_FIELD_ID = "id";

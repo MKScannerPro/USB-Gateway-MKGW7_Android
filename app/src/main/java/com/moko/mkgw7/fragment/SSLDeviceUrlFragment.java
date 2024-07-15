@@ -147,8 +147,7 @@ public class SSLDeviceUrlFragment extends Fragment {
 
     public void setClientCertUrl(String clientCertUrl) {
         this.clientCertUrl = clientCertUrl;
-        if (mBind == null)
-            return;
+        if (mBind == null) return;
         mBind.etClientCertUrl.setText(clientCertUrl);
     }
 

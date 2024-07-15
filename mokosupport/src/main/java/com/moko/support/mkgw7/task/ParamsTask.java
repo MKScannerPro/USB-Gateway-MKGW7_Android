@@ -1,5 +1,7 @@
 package com.moko.support.mkgw7.task;
 
+import androidx.annotation.IntRange;
+
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.support.mkgw7.MokoSupport;
@@ -11,8 +13,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import androidx.annotation.IntRange;
 
 public class ParamsTask extends OrderTask {
     public byte[] data;
@@ -35,43 +35,39 @@ public class ParamsTask extends OrderTask {
     }
 
     private void createGetLongConfigData(int paramsKey) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xEE,
                 (byte) 0x00,
                 (byte) paramsKey,
                 (byte) 0x00
         };
-        response.responseValue = data;
     }
 
     private void createGetConfigData(int configKey) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x00,
                 (byte) configKey,
                 (byte) 0x00
         };
-        response.responseValue = data;
     }
 
     public void reboot() {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_REBOOT.getParamsKey(),
                 (byte) 0x00
         };
-        response.responseValue = data;
     }
 
     public void exitConfigMode() {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_EXIT_CONFIG_MODE.getParamsKey(),
                 (byte) 0x00,
         };
-        response.responseValue = data;
     }
 
     public void changePassword(String password) {
@@ -82,21 +78,18 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_PASSWORD.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
     public void resetParamsType(@IntRange(from = 0, to = 2) int type) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_RESET_PARAMS_TYPE.getParamsKey(),
                 (byte) 0x01,
                 (byte) type
         };
-        response.responseValue = data;
     }
 
     public void setDeviceName(String deviceName) {
@@ -107,9 +100,7 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_DEVICE_NAME.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
@@ -121,9 +112,7 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_PRODUCT_MODEL.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
@@ -135,9 +124,7 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_HARDWARE_VERSION.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
@@ -149,63 +136,56 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_MANUFACTURER.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
     public void setProductTestMode() {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_PRODUCT_TEST_MODE.getParamsKey(),
                 (byte) 0x00
         };
-        response.responseValue = data;
     }
 
     public void setProductTestDeviceState(@IntRange(from = 0, to = 2) int state) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_PRODUCT_TEST_DEVICE_STATE.getParamsKey(),
                 (byte) 0x01,
                 (byte) state,
         };
-        response.responseValue = data;
     }
 
     public void resetParams() {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_RESET_PARAMS.getParamsKey(),
                 (byte) 0x00
         };
-        response.responseValue = data;
     }
 
     public void setIndicatorSwitch(@IntRange(from = 0, to = 15) int enable) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_INDICATOR_SWITCH.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable,
         };
-        response.responseValue = data;
     }
 
     public void setNtpEnable(@IntRange(from = 0, to = 1) int enable) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_NTP_ENABLE.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable,
         };
-        response.responseValue = data;
     }
 
 
@@ -217,21 +197,18 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_NTP_URL.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
     public void setTimezone(@IntRange(from = -24, to = 28) int timezone) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_NTP_TIME_ZONE.getParamsKey(),
                 (byte) 0x01,
                 (byte) timezone,
         };
-        response.responseValue = data;
     }
 
     public void setMqttHost(String host) {
@@ -242,15 +219,13 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_MQTT_HOST.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
     public void setMqttPort(@IntRange(from = 1, to = 65535) int port) {
         byte[] dataBytes = MokoUtils.toByteArray(port, 2);
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_MQTT_PORT.getParamsKey(),
@@ -258,7 +233,6 @@ public class ParamsTask extends OrderTask {
                 dataBytes[0],
                 dataBytes[1]
         };
-        response.responseValue = data;
     }
 
     public void setMqttClientId(String clientId) {
@@ -269,43 +243,38 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_MQTT_CLIENT_ID.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
     public void setMqttCleanSession(@IntRange(from = 0, to = 1) int enable) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_MQTT_CLEAN_SESSION.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable
         };
-        response.responseValue = data;
     }
 
     public void setMqttKeepAlive(@IntRange(from = 10, to = 120) int keepAlive) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_MQTT_KEEP_ALIVE.getParamsKey(),
                 (byte) 0x01,
                 (byte) keepAlive
         };
-        response.responseValue = data;
     }
 
     public void setMqttQos(@IntRange(from = 0, to = 2) int qos) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_MQTT_QOS.getParamsKey(),
                 (byte) 0x01,
                 (byte) qos
         };
-        response.responseValue = data;
     }
 
     public void setMqttSubscribeTopic(String topic) {
@@ -316,9 +285,7 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_MQTT_SUBSCRIBE_TOPIC.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
@@ -330,43 +297,38 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_MQTT_PUBLISH_TOPIC.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
     public void setMqttLwtEnable(@IntRange(from = 0, to = 1) int enable) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_MQTT_LWT_ENABLE.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable
         };
-        response.responseValue = data;
     }
 
     public void setMqttLwtQos(@IntRange(from = 0, to = 2) int qos) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_MQTT_LWT_QOS.getParamsKey(),
                 (byte) 0x01,
                 (byte) qos
         };
-        response.responseValue = data;
     }
 
     public void setMqttLwtRetain(@IntRange(from = 0, to = 1) int retain) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_MQTT_LWT_RETAIN.getParamsKey(),
                 (byte) 0x01,
                 (byte) retain
         };
-        response.responseValue = data;
     }
 
     public void setMqttLwtTopic(String topic) {
@@ -377,9 +339,7 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_MQTT_LWT_TOPIC.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
@@ -391,21 +351,18 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_MQTT_LWT_PAYLOAD.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
     public void setMqttConnectMode(@IntRange(from = 0, to = 3) int mode) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_MQTT_CONNECT_MODE.getParamsKey(),
                 (byte) 0x01,
                 (byte) mode
         };
-        response.responseValue = data;
     }
 
     public void setWifiPassword(String password) {
@@ -416,58 +373,52 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_WIFI_PASSWORD.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
     public void setFilterRSSI(@IntRange(from = -127, to = 0) int rssi) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_FILTER_RSSI.getParamsKey(),
                 (byte) 0x01,
                 (byte) rssi
         };
-        response.responseValue = data;
     }
 
     public void setFilterRelationship(@IntRange(from = 0, to = 7) int relationship) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_FILTER_RELATIONSHIP.getParamsKey(),
                 (byte) 0x01,
                 (byte) relationship
         };
-        response.responseValue = data;
     }
 
     public void setFilterMacPrecise(@IntRange(from = 0, to = 1) int enable) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_FILTER_MAC_PRECISE.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable
         };
-        response.responseValue = data;
     }
 
     public void setFilterMacReverse(@IntRange(from = 0, to = 1) int enable) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_FILTER_MAC_REVERSE.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable
         };
-        response.responseValue = data;
     }
 
     public void setFilterMacRules(ArrayList<String> filterMacRules) {
-        if (filterMacRules == null || filterMacRules.size() == 0) {
+        if (filterMacRules == null || filterMacRules.isEmpty()) {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
@@ -501,25 +452,23 @@ public class ParamsTask extends OrderTask {
     }
 
     public void setFilterNamePrecise(@IntRange(from = 0, to = 1) int enable) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_FILTER_NAME_PRECISE.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable
         };
-        response.responseValue = data;
     }
 
     public void setFilterNameReverse(@IntRange(from = 0, to = 1) int enable) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_FILTER_NAME_REVERSE.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable
         };
-        response.responseValue = data;
     }
 
     public void setFile(ParamsLongKeyEnum key, File file) throws Exception {
@@ -534,7 +483,7 @@ public class ParamsTask extends OrderTask {
         }
         remainPack = packetCount - 1;
         packetIndex = 0;
-        delayTime = DEFAULT_DELAY_TIME + 500 * packetCount;
+        delayTime = DEFAULT_DELAY_TIME + 500L * packetCount;
         if (packetCount > 1) {
             data = new byte[DATA_LENGTH_MAX + 6];
             data[0] = (byte) 0xEE;
@@ -554,10 +503,9 @@ public class ParamsTask extends OrderTask {
             data[3] = (byte) packetCount;
             data[4] = (byte) packetIndex;
             data[5] = (byte) dataLength;
-            for (int i = 0; i < dataLength; i++) {
-                data[i + 6] = dataBytes[i];
-            }
+            System.arraycopy(dataBytes, 0, data, 6, dataLength);
         }
+        inputSteam.close();
     }
 
 
@@ -591,7 +539,7 @@ public class ParamsTask extends OrderTask {
         }
         remainPack = packetCount - 1;
         packetIndex = 0;
-        delayTime = DEFAULT_DELAY_TIME + 500 * packetCount;
+        delayTime = DEFAULT_DELAY_TIME + 500L * packetCount;
         if (packetCount > 1) {
             data = new byte[DATA_LENGTH_MAX + 6];
             data[0] = (byte) 0xEE;
@@ -611,9 +559,7 @@ public class ParamsTask extends OrderTask {
             data[3] = (byte) packetCount;
             data[4] = (byte) packetIndex;
             data[5] = (byte) dataLength;
-            for (int i = 0; i < dataLength; i++) {
-                data[i + 6] = dataBytes[i];
-            }
+            System.arraycopy(dataBytes, 0, data, 6, dataLength);
         }
     }
 
@@ -631,7 +577,7 @@ public class ParamsTask extends OrderTask {
         }
         remainPack = packetCount - 1;
         packetIndex = 0;
-        delayTime = DEFAULT_DELAY_TIME + 500 * packetCount;
+        delayTime = DEFAULT_DELAY_TIME + 500L * packetCount;
         if (packetCount > 1) {
             data = new byte[DATA_LENGTH_MAX + 6];
             data[0] = (byte) 0xEE;
@@ -651,9 +597,7 @@ public class ParamsTask extends OrderTask {
             data[3] = (byte) 0x01;
             data[4] = (byte) packetIndex;
             data[5] = (byte) dataLength;
-            for (int i = 0; i < dataLength; i++) {
-                data[i + 6] = dataBytes[i];
-            }
+            System.arraycopy(dataBytes, 0, data, 6, dataLength);
         }
     }
 
@@ -670,8 +614,7 @@ public class ParamsTask extends OrderTask {
     public boolean parseValue(byte[] value) {
         final int header = value[0] & 0xFF;
         final int flag = value[1] & 0xFF;
-        if (header == 0xED)
-            return true;
+        if (header == 0xED) return true;
         if (flag == 0x01) {
             final int cmd = value[2] & 0xFF;
             final int result = value[4] & 0xFF;
@@ -718,9 +661,7 @@ public class ParamsTask extends OrderTask {
                 data[2] = (byte) cmd;
                 data[3] = dataLengthBytes[0];
                 data[4] = dataLengthBytes[1];
-                for (int i = 0; i < dataLength; i++) {
-                    data[i + 5] = dataBytes[i];
-                }
+                System.arraycopy(dataBytes, 0, data, 5, dataLength);
                 response.responseValue = data;
                 orderStatus = ORDER_STATUS_SUCCESS;
                 MokoSupport.getInstance().pollTask();
@@ -802,9 +743,7 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_I_BEACON_UUID.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < uuidBytes.length; i++) {
-            data[i + 4] = uuidBytes[i];
-        }
+        System.arraycopy(uuidBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
@@ -839,14 +778,13 @@ public class ParamsTask extends OrderTask {
     }
 
     public void setWifiSecurityType(@IntRange(from = 0, to = 1) int type) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_WIFI_SECURITY_TYPE.getParamsKey(),
                 (byte) 0x01,
                 (byte) type
         };
-        response.responseValue = data;
     }
 
     public void setWifiSSID(String SSID) {
@@ -857,21 +795,18 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_WIFI_SSID.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
     public void setWifiEapType(@IntRange(from = 0, to = 2) int type) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_WIFI_EAP_TYPE.getParamsKey(),
                 (byte) 0x01,
                 (byte) type
         };
-        response.responseValue = data;
     }
 
     public void setWifiEapUsername(String username) {
@@ -882,9 +817,7 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_WIFI_EAP_USERNAME.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
@@ -896,9 +829,7 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_WIFI_EAP_PASSWORD.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
@@ -910,61 +841,56 @@ public class ParamsTask extends OrderTask {
         data[1] = (byte) 0x01;
         data[2] = (byte) ParamsKeyEnum.KEY_WIFI_EAP_DOMAIN_ID.getParamsKey();
         data[3] = (byte) length;
-        for (int i = 0; i < dataBytes.length; i++) {
-            data[i + 4] = dataBytes[i];
-        }
+        System.arraycopy(dataBytes, 0, data, 4, length);
         response.responseValue = data;
     }
 
     public void setWifiEapVerifyServiceEnable(@IntRange(from = 0, to = 1) int enable) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_WIFI_EAP_VERIFY_SERVICE_ENABLE.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable
         };
-        response.responseValue = data;
     }
 
     public void setNetworkDHCP(@IntRange(from = 0, to = 1) int enable) {
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_NETWORK_DHCP.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable
         };
-        response.responseValue = data;
     }
 
-    public void setNetworkIPInfo(String ip, String sbNetworkMask, String gateway, String dns) {
+    public void setNetworkIPInfo(String ip, String networkMask, String gateway, String dns) {
         byte[] ipBytes = MokoUtils.hex2bytes(ip);
-        byte[] sbNetworkMaskBytes = MokoUtils.hex2bytes(sbNetworkMask);
+        byte[] networkMaskBytes = MokoUtils.hex2bytes(networkMask);
         byte[] gatewayBytes = MokoUtils.hex2bytes(gateway);
         byte[] dnsBytes = MokoUtils.hex2bytes(dns);
-        data = new byte[]{
+        response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_NETWORK_IP_INFO.getParamsKey(),
                 (byte) 0x10,
-                (byte) ipBytes[0],
-                (byte) ipBytes[1],
-                (byte) ipBytes[2],
-                (byte) ipBytes[3],
-                (byte) sbNetworkMaskBytes[0],
-                (byte) sbNetworkMaskBytes[1],
-                (byte) sbNetworkMaskBytes[2],
-                (byte) sbNetworkMaskBytes[3],
-                (byte) gatewayBytes[0],
-                (byte) gatewayBytes[1],
-                (byte) gatewayBytes[2],
-                (byte) gatewayBytes[3],
-                (byte) dnsBytes[0],
-                (byte) dnsBytes[1],
-                (byte) dnsBytes[2],
-                (byte) dnsBytes[3],
+                ipBytes[0],
+                ipBytes[1],
+                ipBytes[2],
+                ipBytes[3],
+                networkMaskBytes[0],
+                networkMaskBytes[1],
+                networkMaskBytes[2],
+                networkMaskBytes[3],
+                gatewayBytes[0],
+                gatewayBytes[1],
+                gatewayBytes[2],
+                gatewayBytes[3],
+                dnsBytes[0],
+                dnsBytes[1],
+                dnsBytes[2],
+                dnsBytes[3],
         };
-        response.responseValue = data;
     }
 }

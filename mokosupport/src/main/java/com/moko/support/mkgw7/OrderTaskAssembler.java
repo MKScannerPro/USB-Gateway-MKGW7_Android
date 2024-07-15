@@ -532,13 +532,11 @@ public class OrderTaskAssembler {
         return task;
     }
 
-
     public static OrderTask setMqttConnectMode(@IntRange(from = 0, to = 3) int mode) {
         ParamsTask task = new ParamsTask();
         task.setMqttConnectMode(mode);
         return task;
     }
-
 
     public static OrderTask setWifiSSID(String SSID) {
         ParamsTask task = new ParamsTask();
@@ -690,9 +688,9 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask setNetworkIPInfo(String ip, String sbNetworkMask, String gateway, String dns) {
+    public static OrderTask setNetworkIPInfo(String ip, String networkMask, String gateway, String dns) {
         ParamsTask task = new ParamsTask();
-        task.setNetworkIPInfo(ip, sbNetworkMask, gateway, dns);
+        task.setNetworkIPInfo(ip, networkMask, gateway, dns);
         return task;
     }
 

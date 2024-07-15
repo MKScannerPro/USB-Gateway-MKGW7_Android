@@ -19,7 +19,7 @@ import com.moko.mkgw7.R;
 import com.moko.mkgw7.adapter.BleCharacteristicsAdapter;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityOtherInfoMkgw7Binding;
-import com.moko.mkgw7.db.DBTools20D;
+import com.moko.mkgw7.db.DBTools;
 import com.moko.mkgw7.dialog.AlertMessageDialog;
 import com.moko.mkgw7.dialog.CharWriteDialog;
 import com.moko.mkgw7.entity.BleOtherChar;
@@ -225,7 +225,7 @@ public class BleOtherInfoActivity extends BaseActivity<ActivityOtherInfoMkgw7Bin
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDeviceModifyNameEvent(DeviceModifyNameEvent event) {
         // 修改了设备名称
-        MokoDevice device = DBTools20D.getInstance(BleOtherInfoActivity.this).selectDevice(mMokoDevice.mac);
+        MokoDevice device = DBTools.getInstance(getApplicationContext()).selectDevice(mMokoDevice.mac);
         mMokoDevice.name = device.name;
         mBind.tvDeviceName.setText(mMokoDevice.name);
     }

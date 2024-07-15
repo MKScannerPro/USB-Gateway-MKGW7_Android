@@ -12,7 +12,7 @@ import com.moko.mkgw7.AppConstants;
 import com.moko.mkgw7.R;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityModifyDeviceNameMkgw7Binding;
-import com.moko.mkgw7.db.DBTools20D;
+import com.moko.mkgw7.db.DBTools;
 import com.moko.mkgw7.entity.MokoDevice;
 import com.moko.mkgw7.utils.ToastUtils;
 import com.moko.support.mkgw7.event.MQTTConnectionCompleteEvent;
@@ -56,7 +56,7 @@ public class ModifyNameActivity extends BaseActivity<ActivityModifyDeviceNameMkg
             return;
         }
         device.name = name;
-        DBTools20D.getInstance(this).updateDevice(device);
+        DBTools.getInstance(getApplicationContext()).updateDevice(device);
         // 跳转首页，刷新数据
         Intent intent = new Intent(this, MkGw7MainActivity.class);
         intent.putExtra(AppConstants.EXTRA_KEY_FROM_ACTIVITY, TAG);

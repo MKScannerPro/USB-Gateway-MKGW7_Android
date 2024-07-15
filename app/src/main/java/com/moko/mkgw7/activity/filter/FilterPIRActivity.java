@@ -31,7 +31,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FilterPIRActivity extends BaseActivity<ActivityFilterPirMkgw7Binding> {
@@ -236,7 +235,7 @@ public class FilterPIRActivity extends BaseActivity<ActivityFilterPirMkgw7Bindin
     public void onDelayRespStatus(View view) {
         if (isWindowLocked()) return;
         BottomDialog dialog = new BottomDialog();
-        dialog.setDatas(new ArrayList<>(Arrays.asList(mDelayRespStatusValues)), mDelayRespStatusSelected);
+        dialog.setDatas(Arrays.asList(mDelayRespStatusValues), mDelayRespStatusSelected);
         dialog.setListener(value -> {
             mDelayRespStatusSelected = value;
             mBind.tvDelayRespStatus.setText(mDelayRespStatusValues[value]);
@@ -247,7 +246,7 @@ public class FilterPIRActivity extends BaseActivity<ActivityFilterPirMkgw7Bindin
     public void onDoorStatus(View view) {
         if (isWindowLocked()) return;
         BottomDialog dialog = new BottomDialog();
-        dialog.setDatas(new ArrayList<>(Arrays.asList(mDoorStatusValues)), mDoorStatusSelected);
+        dialog.setDatas(Arrays.asList(mDoorStatusValues), mDoorStatusSelected);
         dialog.setListener(value -> {
             mDoorStatusSelected = value;
             mBind.tvDoorStatus.setText(mDoorStatusValues[value]);
@@ -258,7 +257,7 @@ public class FilterPIRActivity extends BaseActivity<ActivityFilterPirMkgw7Bindin
     public void onSensorSensitivity(View view) {
         if (isWindowLocked()) return;
         BottomDialog dialog = new BottomDialog();
-        dialog.setDatas(new ArrayList<>(Arrays.asList(mSensorSensitivityValues)), mSensorSensitivitySelected);
+        dialog.setDatas(Arrays.asList(mSensorSensitivityValues), mSensorSensitivitySelected);
         dialog.setListener(value -> {
             mSensorSensitivitySelected = value;
             mBind.tvSensorSensitivity.setText(mSensorSensitivityValues[value]);
@@ -269,7 +268,7 @@ public class FilterPIRActivity extends BaseActivity<ActivityFilterPirMkgw7Bindin
     public void onDetectionStatus(View view) {
         if (isWindowLocked()) return;
         BottomDialog dialog = new BottomDialog();
-        dialog.setDatas(new ArrayList<>(Arrays.asList(mDetectionStatusValues)), mDetectionStatusSelected);
+        dialog.setDatas(Arrays.asList(mDetectionStatusValues), mDetectionStatusSelected);
         dialog.setListener(value -> {
             mDetectionStatusSelected = value;
             mBind.tvDetectionStatus.setText(mDetectionStatusValues[value]);

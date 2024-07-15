@@ -153,8 +153,7 @@ public class SSLDeviceFragment extends Fragment {
 
     public void setClientCertPath(String clientCertPath) {
         this.clientCertPath = clientCertPath;
-        if (mBind == null)
-            return;
+        if (mBind == null) return;
         mBind.tvClientCertFile.setText(clientCertPath);
     }
 
