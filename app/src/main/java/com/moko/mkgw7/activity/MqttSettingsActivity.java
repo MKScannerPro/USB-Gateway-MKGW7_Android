@@ -376,14 +376,14 @@ public class MqttSettingsActivity extends BaseActivity<ActivityMqttDeviceMkgw7Bi
 
     public void onSave(View view) {
         if (isWindowLocked()) return;
-        if (isParaError()) return;
+        if (isParaError(1)) return;
         setMQTTDeviceConfig();
     }
 
-    private boolean isParaError() {
-        String host = mBind.etMqttHost.getText().toString().replaceAll(" ", "");
+    private boolean isParaError(int flag) {
+        String host = mBind.etMqttHost.getText().toString();
         String port = mBind.etMqttPort.getText().toString();
-        String clientId = mBind.etMqttClientId.getText().toString().replaceAll(" ", "");
+        String clientId = mBind.etMqttClientId.getText().toString();
         String topicSubscribe = mBind.etMqttSubscribeTopic.getText().toString();
         String topicPublish = mBind.etMqttPublishTopic.getText().toString();
 
@@ -416,8 +416,13 @@ public class MqttSettingsActivity extends BaseActivity<ActivityMqttDeviceMkgw7Bi
             ToastUtils.showToast(this, "Subscribed and published topic can't be same !");
             return true;
         }
-        if (!generalFragment.isValid() || !sslFragment.isValid() || !lwtFragment.isValid())
-            return true;
+        if (flag == 1) {
+            if (!generalFragment.isValid() || !sslFragment.isValid() || !lwtFragment.isValid())
+                return true;
+        } else {
+            if (!generalFragment.isValid() || !lwtFragment.isValid())
+                return true;
+        }
         mqttDeviceConfig.host = host;
         mqttDeviceConfig.port = port;
         mqttDeviceConfig.clientId = clientId;
@@ -503,7 +508,7 @@ public class MqttSettingsActivity extends BaseActivity<ActivityMqttDeviceMkgw7Bi
 
     public void onExportSettings(View view) {
         if (isWindowLocked()) return;
-        if (isParaError()) return;
+        if (isParaError(2)) return;
         mqttDeviceConfig.host = mBind.etMqttHost.getText().toString().replaceAll(" ", "");
         mqttDeviceConfig.port = mBind.etMqttPort.getText().toString();
         mqttDeviceConfig.clientId = mBind.etMqttClientId.getText().toString().replaceAll(" ", "");

@@ -295,9 +295,7 @@ public class ModifyWifiSettingsActivity extends BaseActivity<ActivityModifyWifiS
         jsonObject.addProperty("eap_id", TextUtils.isEmpty(mBind.etDomainId.getText()) ? "" : mBind.etDomainId.getText().toString());
         jsonObject.addProperty("eap_username", TextUtils.isEmpty(mBind.etUsername.getText()) ? "" : mBind.etUsername.getText().toString());
         jsonObject.addProperty("eap_passwd", TextUtils.isEmpty(mBind.etEapPassword.getText()) ? "" : mBind.etEapPassword.getText().toString());
-        if (mEAPTypeSelected != 2) {
-            jsonObject.addProperty("eap_verify_server", mBind.cbVerifyServer.isChecked() ? 1 : 0);
-        }
+        jsonObject.addProperty("eap_verify_server", mBind.cbVerifyServer.isChecked() ? 1 : 0);
         String message = assembleWriteCommonData(msgId, mMokoDevice.mac, jsonObject);
         try {
             MQTTSupport.getInstance().publish(mAppTopic, message, msgId, appMqttConfig.qos);
