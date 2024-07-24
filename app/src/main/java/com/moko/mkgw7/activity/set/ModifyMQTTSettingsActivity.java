@@ -475,6 +475,10 @@ public class ModifyMQTTSettingsActivity extends BaseActivity<ActivityMqttDeviceM
         mqttDeviceConfig.lwtQos = lwtFragment.getQos();
         mqttDeviceConfig.lwtTopic = lwtFragment.getTopic();
         mqttDeviceConfig.lwtPayload = lwtFragment.getPayload();
+        String caUrl = sslFragment.getCAUrl();
+        String keyUrl = sslFragment.getClientKeyUrl();
+        String certUrl = sslFragment.getClientCertUrl();
+
         showLoadingProgressDialog();
         final File expertFile = new File(expertFilePath);
         try {
@@ -602,6 +606,25 @@ public class ModifyMQTTSettingsActivity extends BaseActivity<ActivityMqttDeviceM
 //                else
 //                    row17.createCell(1).setCellValue("");
                 row17.createCell(2).setCellValue("1-128 characters (When LWT is enabled) ");
+                //增加证书路径的导出
+                XSSFRow row18 = sheet.createRow(18);
+                row18.createCell(0).setCellValue("CA url");
+                if (!TextUtils.isEmpty(caUrl)) {
+                    row18.createCell(1).setCellValue(String.format("value:%s", caUrl));
+                }
+                row18.createCell(2).setCellValue("0-256 characters");
+                XSSFRow row19 = sheet.createRow(19);
+                row19.createCell(0).setCellValue("Client Cert url");
+                if (!TextUtils.isEmpty(certUrl)) {
+                    row19.createCell(1).setCellValue(String.format("value:%s", certUrl));
+                }
+                row19.createCell(2).setCellValue("0-256 characters");
+                XSSFRow row20 = sheet.createRow(20);
+                row20.createCell(0).setCellValue("Client Key url");
+                if (!TextUtils.isEmpty(keyUrl)) {
+                    row20.createCell(1).setCellValue(String.format("value:%s", keyUrl));
+                }
+                row20.createCell(2).setCellValue("0-256 characters");
 
                 Uri uri = Uri.fromFile(expertFile);
                 try {
@@ -664,7 +687,7 @@ public class ModifyMQTTSettingsActivity extends BaseActivity<ActivityMqttDeviceM
                             int rows = sheet.getPhysicalNumberOfRows();
                             int columns = sheet.getRow(0).getPhysicalNumberOfCells();
                             // 从第二行开始
-                            if (rows < 18 || columns < 3) {
+                            if (rows < 21 || columns < 3) {
                                 runOnUiThread(() -> {
                                     dismissLoadingProgressDialog();
                                     ToastUtils.showToast(ModifyMQTTSettingsActivity.this, "Please select the correct file!");
@@ -733,6 +756,18 @@ public class ModifyMQTTSettingsActivity extends BaseActivity<ActivityMqttDeviceM
                             if (payloadCell != null) {
                                 mqttDeviceConfig.lwtPayload = payloadCell.getStringCellValue().replaceAll("value:", "");
                             }
+                            Cell caCell = sheet.getRow(18).getCell(1);
+                            if (null != caCell) {
+                                mqttDeviceConfig.caPath = caCell.getStringCellValue().replaceAll("value:", "");
+                            }
+                            Cell certCell = sheet.getRow(19).getCell(1);
+                            if (null != certCell) {
+                                mqttDeviceConfig.clientCertPath = certCell.getStringCellValue().replaceAll("value:", "");
+                            }
+                            Cell keyCell = sheet.getRow(20).getCell(1);
+                            if (null != keyCell) {
+                                mqttDeviceConfig.clientKeyPath = keyCell.getStringCellValue().replaceAll("value:", "");
+                            }
                             runOnUiThread(() -> {
                                 dismissLoadingProgressDialog();
                                 if (isFileError) {
@@ -743,7 +778,9 @@ public class ModifyMQTTSettingsActivity extends BaseActivity<ActivityMqttDeviceM
                                 initData();
                             });
                         } catch (Exception e) {
-                            XLog.e(e);
+                            XLog.e("exception:" + e);
+                            ToastUtils.showToast(this, "Import failed!");
+                            runOnUiThread(this::dismissLoadingProgressDialog);
                             isFileError = true;
                         }
                     }).start();

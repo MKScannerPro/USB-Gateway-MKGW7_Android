@@ -2,6 +2,7 @@ package com.moko.mkgw7.fragment;
 
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,8 +106,7 @@ public class SSLDeviceUrlFragment extends Fragment {
 
     public void setConnectMode(int connectMode) {
         this.mConnectMode = connectMode;
-        if (mBind == null)
-            return;
+        if (mBind == null) return;
         mBind.clCertificate.setVisibility(mConnectMode > 0 ? View.VISIBLE : View.GONE);
         if (mConnectMode > 0) {
             selected = mConnectMode - 1;
@@ -133,15 +133,13 @@ public class SSLDeviceUrlFragment extends Fragment {
 
     public void setCAUrl(String caUrl) {
         this.caUrl = caUrl;
-        if (mBind == null)
-            return;
+        if (mBind == null) return;
         mBind.etCaUrl.setText(caUrl);
     }
 
     public void setClientKeyUrl(String clientKeyUrl) {
         this.clientKeyUrl = clientKeyUrl;
-        if (mBind == null)
-            return;
+        if (mBind == null) return;
         mBind.etClientKeyUrl.setText(clientKeyUrl);
     }
 
@@ -182,14 +180,17 @@ public class SSLDeviceUrlFragment extends Fragment {
     }
 
     public String getCAUrl() {
+        if (TextUtils.isEmpty(mBind.etCaUrl.getText())) return null;
         return mBind.etCaUrl.getText().toString();
     }
 
     public String getClientCertUrl() {
+        if (TextUtils.isEmpty(mBind.etClientCertUrl.getText())) return null;
         return mBind.etClientCertUrl.getText().toString();
     }
 
     public String getClientKeyUrl() {
+        if (TextUtils.isEmpty(mBind.etClientKeyUrl.getText())) return null;
         return mBind.etClientKeyUrl.getText().toString();
     }
 }
