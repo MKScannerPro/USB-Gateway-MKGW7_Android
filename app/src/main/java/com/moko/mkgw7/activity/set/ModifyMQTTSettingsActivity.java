@@ -779,8 +779,10 @@ public class ModifyMQTTSettingsActivity extends BaseActivity<ActivityMqttDeviceM
                             });
                         } catch (Exception e) {
                             XLog.e("exception:" + e);
-                            ToastUtils.showToast(this, "Import failed!");
-                            runOnUiThread(this::dismissLoadingProgressDialog);
+                            runOnUiThread(() -> {
+                                ToastUtils.showToast(this, "Import failed!");
+                                dismissLoadingProgressDialog();
+                            });
                             isFileError = true;
                         }
                     }).start();
