@@ -10,6 +10,8 @@ import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityDeviceInfoMkgw7Binding;
+import com.moko.mkgw7.dialog.AlertMessageDialog;
+import com.moko.mkgw7.utils.ToastUtils;
 import com.moko.support.mkgw7.MokoSupport;
 import com.moko.support.mkgw7.OrderTaskAssembler;
 import com.moko.support.mkgw7.entity.OrderCHAR;
@@ -21,7 +23,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class DeviceInformationActivity extends BaseActivity<ActivityDeviceInfoMkgw7Binding> {
     @Override
@@ -37,11 +38,26 @@ public class DeviceInformationActivity extends BaseActivity<ActivityDeviceInfoMk
         orderTasks.add(OrderTaskAssembler.getWifiMac());
         orderTasks.add(OrderTaskAssembler.getBleMac());
         MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+        mBind.btnChangeWorkMode.setOnClickListener(v -> changeWorkMode());
     }
 
     @Override
     protected ActivityDeviceInfoMkgw7Binding getViewBinding() {
         return ActivityDeviceInfoMkgw7Binding.inflate(getLayoutInflater());
+    }
+
+    private void changeWorkMode() {
+        //切换工作模式到串口模式
+        AlertMessageDialog dialog = new AlertMessageDialog();
+        dialog.setTitle("Warning!");
+        dialog.setMessage("The work mode will be changed to USB mode after a manual reboot,WIFI will not work more,please confirm whether to change it again");
+        dialog.setCancel("Cancel");
+        dialog.setConfirm("Confirm");
+        dialog.setOnAlertConfirmListener(() -> {
+            showLoadingProgressDialog();
+            MokoSupport.getInstance().sendOrder(OrderTaskAssembler.enterUsbMode());
+        });
+        dialog.show(getSupportFragmentManager());
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 100)
@@ -70,49 +86,59 @@ public class DeviceInformationActivity extends BaseActivity<ActivityDeviceInfoMk
                     int header = value[0] & 0xFF;// 0xED
                     int flag = value[1] & 0xFF;// read or write
                     int cmd = value[2] & 0xFF;
-                    if (header == 0xED) {
-                        ParamsKeyEnum configKeyEnum = ParamsKeyEnum.fromParamKey(cmd);
-                        if (configKeyEnum == null) return;
-                        int length = value[3] & 0xFF;
-                        if (flag == 0x00) {
-                            if (length == 0) return;
-                            // read
-                            switch (configKeyEnum) {
-                                case KEY_DEVICE_NAME:
-                                    mBind.tvDeviceName.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
-                                    break;
+                    if (header != 0xED) return;
+                    ParamsKeyEnum configKeyEnum = ParamsKeyEnum.fromParamKey(cmd);
+                    if (configKeyEnum == null) return;
+                    int length = value[3] & 0xFF;
+                    if (flag == 0x00) {
+                        if (length == 0) return;
+                        // read
+                        switch (configKeyEnum) {
+                            case KEY_DEVICE_NAME:
+                                mBind.tvDeviceName.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
+                                break;
 
-                                case KEY_PRODUCT_MODEL:
-                                    mBind.tvProductModel.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
-                                    break;
+                            case KEY_PRODUCT_MODEL:
+                                mBind.tvProductModel.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
+                                break;
 
-                                case KEY_MANUFACTURER:
-                                    mBind.tvManufacturer.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
-                                    break;
+                            case KEY_MANUFACTURER:
+                                mBind.tvManufacturer.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
+                                break;
 
-                                case KEY_SOFTWARE_VERSION:
-                                    mBind.tvDeviceSoftwareVersion.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
-                                    break;
+                            case KEY_SOFTWARE_VERSION:
+                                mBind.tvDeviceSoftwareVersion.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
+                                break;
 
-                                case KEY_FIRMWARE_VERSION:
-                                    mBind.tvWifiFirmwareVersion.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
-                                    break;
+                            case KEY_FIRMWARE_VERSION:
+                                mBind.tvWifiFirmwareVersion.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
+                                break;
 
-                                case KEY_HARDWARE_VERSION:
-                                    mBind.tvDeviceHardwareVersion.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
-                                    break;
+                            case KEY_HARDWARE_VERSION:
+                                mBind.tvDeviceHardwareVersion.setText(new String(Arrays.copyOfRange(value, 4, 4 + length)));
+                                break;
 
-                                case KEY_WIFI_MAC:
-                                    byte[] wifiMacBytes = Arrays.copyOfRange(value, 4, 4 + length);
-                                    mBind.tvWifiMac.setText(MokoUtils.bytesToHexString(wifiMacBytes).toUpperCase());
-                                    break;
+                            case KEY_WIFI_MAC:
+                                byte[] wifiMacBytes = Arrays.copyOfRange(value, 4, 4 + length);
+                                mBind.tvWifiMac.setText(MokoUtils.bytesToHexString(wifiMacBytes).toUpperCase());
+                                break;
 
-                                case KEY_BLE_MAC:
-                                    byte[] bleMacBytes = Arrays.copyOfRange(value, 4, 4 + length);
-                                    mBind.tvBtMac.setText(MokoUtils.bytesToHexString(bleMacBytes).toUpperCase());
-                                    break;
-                            }
+                            case KEY_BLE_MAC:
+                                byte[] bleMacBytes = Arrays.copyOfRange(value, 4, 4 + length);
+                                mBind.tvBtMac.setText(MokoUtils.bytesToHexString(bleMacBytes).toUpperCase());
+                                break;
                         }
+                    }
+                }
+            } else if (orderCHAR == OrderCHAR.CHAR_PARAMS_DEFAULT) {
+                if (value.length >= 4) {
+                    int header = value[0] & 0xFF;// 0xED
+                    int flag = value[1] & 0xFF;// read or write
+                    int cmd = value[2] & 0xFF;
+                    if (header != 0xED) return;
+                    ParamsKeyEnum configKeyEnum = ParamsKeyEnum.fromParamKey(cmd);
+                    if (flag == 1 && configKeyEnum == ParamsKeyEnum.KEY_ENTER_USB_MODE) {
+                        ToastUtils.showToast(this, (value[4] & 0xff) == 1 ? "Setup succeed！" : "Setup failed！");
                     }
                 }
             }

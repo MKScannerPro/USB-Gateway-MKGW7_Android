@@ -41,6 +41,7 @@ public class DeviceInfoActivity extends BaseActivity<ActivityDeviceInfoMkgw7Bind
         appMqttConfig = new Gson().fromJson(mqttConfigAppStr, MQTTConfig.class);
         mAppTopic = TextUtils.isEmpty(appMqttConfig.topicPublish) ? mMokoDevice.topicSubscribe : appMqttConfig.topicPublish;
         mHandler = new Handler(Looper.getMainLooper());
+        mBind.btnChangeWorkMode.setVisibility(View.GONE);
         mHandler.postDelayed(() -> {
             dismissLoadingProgressDialog();
             finish();

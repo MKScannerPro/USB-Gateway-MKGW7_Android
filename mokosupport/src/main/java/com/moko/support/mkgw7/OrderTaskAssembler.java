@@ -3,6 +3,7 @@ package com.moko.support.mkgw7;
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.support.mkgw7.entity.ParamsKeyEnum;
 import com.moko.support.mkgw7.entity.ParamsLongKeyEnum;
+import com.moko.support.mkgw7.task.ParamsDefaultTask;
 import com.moko.support.mkgw7.task.ParamsTask;
 import com.moko.support.mkgw7.task.SetPasswordTask;
 
@@ -65,7 +66,7 @@ public class OrderTaskAssembler {
 
     public static OrderTask getResetParamsType() {
         ParamsTask task = new ParamsTask();
-        task.setData(ParamsKeyEnum.KEY_RESET_PARAMS_TYPE);
+        task.setData(ParamsKeyEnum.KEY_ENTER_USB_MODE);
         return task;
     }
 
@@ -382,9 +383,9 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask resetParamsType(@IntRange(from = 0, to = 2) int type) {
-        ParamsTask task = new ParamsTask();
-        task.resetParamsType(type);
+    public static OrderTask enterUsbMode() {
+        ParamsDefaultTask task = new ParamsDefaultTask();
+        task.enterUsbMode();
         return task;
     }
 

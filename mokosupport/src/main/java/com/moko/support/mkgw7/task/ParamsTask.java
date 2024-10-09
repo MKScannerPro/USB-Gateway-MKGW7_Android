@@ -82,16 +82,6 @@ public class ParamsTask extends OrderTask {
         response.responseValue = data;
     }
 
-    public void resetParamsType(@IntRange(from = 0, to = 2) int type) {
-        response.responseValue = data = new byte[]{
-                (byte) 0xED,
-                (byte) 0x01,
-                (byte) ParamsKeyEnum.KEY_RESET_PARAMS_TYPE.getParamsKey(),
-                (byte) 0x01,
-                (byte) type
-        };
-    }
-
     public void setDeviceName(String deviceName) {
         byte[] dataBytes = deviceName.getBytes();
         int length = dataBytes.length;

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_ffffff"
+    android:background="@color/grey_f2f2f2"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -26,15 +26,12 @@
             android:text="@string/device_information"
             android:textColor="@color/white_ffffff"
             android:textSize="17sp" />
-
-        <View
-            style="@style/divider_line"
-            android:background="@color/grey_999999" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@color/white_ffffff"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
@@ -56,13 +53,11 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <View
-        style="@style/divider_line"
-        android:background="@color/grey_d9d9d9" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white_ffffff"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
@@ -84,13 +79,11 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <View
-        style="@style/divider_line"
-        android:background="@color/grey_d9d9d9" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white_ffffff"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
@@ -112,13 +105,11 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <View
-        style="@style/divider_line"
-        android:background="@color/grey_d9d9d9" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white_ffffff"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
@@ -140,13 +131,11 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <View
-        style="@style/divider_line"
-        android:background="@color/grey_d9d9d9" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white_ffffff"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
@@ -168,13 +157,11 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <View
-        style="@style/divider_line"
-        android:background="@color/grey_d9d9d9" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white_ffffff"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
@@ -196,13 +183,11 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <View
-        style="@style/divider_line"
-        android:background="@color/grey_d9d9d9" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white_ffffff"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
@@ -224,13 +209,11 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <View
-        style="@style/divider_line"
-        android:background="@color/grey_d9d9d9" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white_ffffff"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
@@ -253,6 +236,21 @@
     </LinearLayout>
 
     <View
-        style="@style/divider_line"
-        android:background="@color/grey_d9d9d9" />
+        android:layout_width="wrap_content"
+        android:layout_height="0px"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btnChangeWorkMode"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_radius_blue_btn_bg"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="60dp"
+        android:paddingStart="35dp"
+        android:paddingEnd="35dp"
+        android:text="Change Work Mode"
+        android:textColor="@color/white_ffffff"
+        android:textSize="15sp" />
 </LinearLayout>
