@@ -9,14 +9,15 @@ public class AppConstants {
     public static final String PATTERN_YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
     public static final String PATTERN_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
     // action
-    public static final String ACTION_FINISH_ACTIVITY = "com.moko.mkremotegw.action.finishActivity";
-    public static final String ACTION_MODIFY_NAME = "com.moko.mkremotegw.action.ACTION_MODIFY_NAME";
-    public static final String ACTION_DELETE_DEVICE = "com.moko.mkremotegw.action.ACTION_DELETE_DEVICE";
-    public static final String ACTION_DEVICE_STATE = "com.moko.mkremotegw.action.ACTION_DEVICE_STATE";
+    public static final String ACTION_FINISH_ACTIVITY = "com.moko.mkgw7.action.finishActivity";
+    public static final String ACTION_MODIFY_NAME = "com.moko.mkgw7.action.ACTION_MODIFY_NAME";
+    public static final String ACTION_DELETE_DEVICE = "com.moko.mkgw7.action.ACTION_DELETE_DEVICE";
+    public static final String ACTION_DEVICE_STATE = "com.moko.mkgw7.action.ACTION_DEVICE_STATE";
     // sp
     public static final String SP_NAME = "sp_name_mkgw7";
     //    public static final String SP_KEY_MQTT_CONFIG = "SP_KEY_MQTT_CONFIG";
     public static final String SP_KEY_MQTT_CONFIG_APP = "SP_KEY_MQTT_CONFIG_APP";
+    public static final String SP_URL = "SP_URL";
 
 
     public static final String SP_KEY_DEVICE_ADDRESS = "sp_key_device_address";
@@ -48,6 +49,9 @@ public class AppConstants {
     public static final String EXTRA_KEY_DEVICE_PUBLISH_TOPIC = "EXTRA_KEY_DEVICE_PUBLISH_TOPIC";
     public static final String EXTRA_KEY_DEVICE_LWT_ENABLE = "EXTRA_KEY_DEVICE_LWT_ENABLE";
     public static final String EXTRA_KEY_DEVICE_LWT_TOPIC = "EXTRA_KEY_DEVICE_LWT_TOPIC";
+    public static final String EXTRA_KEY_LOGIN_ACCOUNT = "EXTRA_KEY_LOGIN_ACCOUNT";
+    public static final String EXTRA_KEY_LOGIN_PASSWORD = "EXTRA_KEY_LOGIN_PASSWORD";
+    public static final String EXTRA_KEY_LOGIN_ENV = "EXTRA_KEY_LOGIN_ENV";
     // request_code
     public static final int REQUEST_CODE_TEMP_TARGET = 100;
     public static final int REQUEST_CODE_TIMER = 101;

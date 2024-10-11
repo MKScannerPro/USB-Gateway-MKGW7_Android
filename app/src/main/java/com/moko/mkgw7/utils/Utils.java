@@ -45,7 +45,7 @@ public class Utils {
      * @Date 2021/12/27
      * @Author wenzheng.liu
      * @Description 兼容Android 11
-     * @ClassPath com.moko.mkremotegw.utils.Utils
+     * @ClassPath com.moko.mkgw7.utils.Utils
      */
     public static void sendEmail(Context context, String address, String body, String subject, String tips, File... files) {
         if (files.length == 0) {
@@ -61,7 +61,7 @@ public class Utils {
                 if (BuildConfig.IS_LIBRARY) {
                     uri = FileProvider.getUriForFile(context, "com.moko.mkscannerpro.fileprovider", files[0]);
                 } else {
-                    uri = FileProvider.getUriForFile(context, "com.moko.mkremotegw.fileprovider", files[0]);
+                    uri = FileProvider.getUriForFile(context, "com.moko.mkgw7.fileprovider", files[0]);
                 }
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             } else {
@@ -71,18 +71,26 @@ public class Utils {
             intent.putExtra(Intent.EXTRA_TEXT, body);
         } else {
             ArrayList<Uri> uris = new ArrayList<>();
+            ArrayList<CharSequence> charSequences = new ArrayList<>();
             for (int i = 0; i < files.length; i++) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     Uri fileUri = IOUtils.insertDownloadFile(context, files[i]);
                     uris.add(fileUri);
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Uri uri;
+                    if (BuildConfig.IS_LIBRARY) {
+                        uri = FileProvider.getUriForFile(context, "com.moko.mkscannerpro.fileprovider", files[0]);
+                    } else {
+                        uri = FileProvider.getUriForFile(context, "com.moko.mkgw7.fileprovider", files[0]);
+                    }
+                    uris.add(uri);
                 } else {
                     uris.add(Uri.fromFile(files[i]));
                 }
+                charSequences.add(body);
             }
             intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-            ArrayList<CharSequence> charSequences = new ArrayList<>();
-            charSequences.add(body);
             intent.putExtra(Intent.EXTRA_TEXT, charSequences);
         }
         String[] addresses = {address};
