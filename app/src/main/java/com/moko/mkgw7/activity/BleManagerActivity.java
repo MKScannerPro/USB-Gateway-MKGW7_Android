@@ -19,22 +19,22 @@ import com.moko.mkgw7.adapter.BleDeviceAdapter;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityBleDevicesMkgw7Binding;
 import com.moko.mkgw7.db.DBTools;
-import com.moko.mkgw7.dialog.PasswordRemoteBleDialog;
-import com.moko.mkgw7.dialog.ScanFilterDialog;
+import com.moko.lib.scannerui.dialog.PasswordBleDialog;
+import com.moko.lib.scannerui.dialog.ScanFilterDialog;
 import com.moko.mkgw7.entity.MQTTConfig;
 import com.moko.mkgw7.entity.MokoDevice;
 import com.moko.mkgw7.utils.SPUtiles;
-import com.moko.mkgw7.utils.ToastUtils;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.support.mkgw7.MQTTConstants;
-import com.moko.support.mkgw7.MQTTSupport;
+import com.moko.lib.mqtt.MQTTSupport;
 import com.moko.support.mkgw7.MokoSupport;
 import com.moko.support.mkgw7.entity.BXPButtonInfo;
 import com.moko.support.mkgw7.entity.BleDevice;
-import com.moko.support.mkgw7.entity.MsgNotify;
+import com.moko.lib.mqtt.entity.MsgNotify;
 import com.moko.support.mkgw7.entity.OtherDeviceInfo;
-import com.moko.support.mkgw7.event.DeviceModifyNameEvent;
-import com.moko.support.mkgw7.event.DeviceOnlineEvent;
-import com.moko.support.mkgw7.event.MQTTMessageArrivedEvent;
+import com.moko.lib.mqtt.event.DeviceModifyNameEvent;
+import com.moko.lib.mqtt.event.DeviceOnlineEvent;
+import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.greenrobot.eventbus.EventBus;
@@ -304,7 +304,7 @@ public class BleManagerActivity extends BaseActivity<ActivityBleDevicesMkgw7Bind
         if (bleDevice.type_code == 7) {
             // BXP-Button
             // show password
-            final PasswordRemoteBleDialog dialog = new PasswordRemoteBleDialog();
+            final PasswordBleDialog dialog = new PasswordBleDialog();
             dialog.setOnPasswordClicked(password -> {
                 if (!MokoSupport.getInstance().isBluetoothOpen()) {
                     MokoSupport.getInstance().enableBluetooth();

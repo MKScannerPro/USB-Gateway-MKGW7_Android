@@ -14,7 +14,7 @@ import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityScannerFilterMkgw7Binding;
-import com.moko.mkgw7.utils.ToastUtils;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.support.mkgw7.MokoSupport;
 import com.moko.support.mkgw7.OrderTaskAssembler;
 import com.moko.support.mkgw7.entity.OrderCHAR;

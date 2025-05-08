@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.moko.mkgw7.activity.set.ModifyMQTTSettingsActivity;
 import com.moko.mkgw7.databinding.FragmentSslDeviceUrlMkgw7Binding;
-import com.moko.mkgw7.dialog.BottomDialog;
+import com.moko.lib.scannerui.dialog.BottomDialog;
 
 import java.util.ArrayList;
 

@@ -17,9 +17,9 @@ import androidx.fragment.app.Fragment;
 import com.moko.mkgw7.R;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.FragmentSslAppMkgw7Binding;
-import com.moko.mkgw7.dialog.BottomDialog;
+import com.moko.lib.scannerui.dialog.BottomDialog;
 import com.moko.mkgw7.utils.FileUtils;
-import com.moko.mkgw7.utils.ToastUtils;
+import com.moko.lib.scannerui.utils.ToastUtils;
 
 import java.io.File;
 import java.util.ArrayList;

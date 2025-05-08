@@ -17,9 +17,9 @@ import com.moko.mkgw7.AppConstants;
 import com.moko.mkgw7.R;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityWifiSettingsMkgw7Binding;
-import com.moko.mkgw7.dialog.BottomDialog;
+import com.moko.lib.scannerui.dialog.BottomDialog;
 import com.moko.mkgw7.utils.FileUtils;
-import com.moko.mkgw7.utils.ToastUtils;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.support.mkgw7.MokoSupport;
 import com.moko.support.mkgw7.OrderTaskAssembler;
 import com.moko.support.mkgw7.entity.OrderCHAR;
@@ -275,7 +275,7 @@ public class WifiSettingsActivity extends BaseActivity<ActivityWifiSettingsMkgw7
     }
 
     private void setDhcpEnable(boolean enable) {
-        mBind.layoutIp.imgDhcp.setImageResource(enable ? R.drawable.checkbox_open : R.drawable.checkbox_close);
+        mBind.layoutIp.imgDhcp.setImageResource(enable ? R.drawable.ic_checkbox_open : R.drawable.ic_checkbox_close);
         mBind.layoutIp.clIp.setVisibility(enable ? View.GONE : View.VISIBLE);
     }
 

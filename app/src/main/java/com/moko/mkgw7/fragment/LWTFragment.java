@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.moko.mkgw7.databinding.FragmentLwtMkgw7Binding;
-import com.moko.mkgw7.utils.ToastUtils;
+import com.moko.lib.scannerui.utils.ToastUtils;
 
 public class LWTFragment extends Fragment {
     private static final String TAG = LWTFragment.class.getSimpleName();
