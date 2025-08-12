@@ -6,35 +6,33 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.elvishew.xlog.XLog;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.moko.lib.mqtt.MQTTSupport;
+import com.moko.lib.mqtt.entity.MsgNotify;
+import com.moko.lib.mqtt.event.DeviceModifyNameEvent;
+import com.moko.lib.mqtt.event.DeviceOnlineEvent;
+import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
+import com.moko.lib.scannerui.dialog.PasswordBleDialog;
+import com.moko.lib.scannerui.dialog.ScanFilterDialog;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.mkgw7.AppConstants;
 import com.moko.mkgw7.adapter.BleDeviceAdapter;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityBleDevicesMkgw7Binding;
 import com.moko.mkgw7.db.DBTools;
-import com.moko.lib.scannerui.dialog.PasswordBleDialog;
-import com.moko.lib.scannerui.dialog.ScanFilterDialog;
 import com.moko.mkgw7.entity.MQTTConfig;
 import com.moko.mkgw7.entity.MokoDevice;
 import com.moko.mkgw7.utils.SPUtiles;
-import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.support.mkgw7.MQTTConstants;
-import com.moko.lib.mqtt.MQTTSupport;
 import com.moko.support.mkgw7.MokoSupport;
 import com.moko.support.mkgw7.entity.BXPButtonInfo;
 import com.moko.support.mkgw7.entity.BleDevice;
-import com.moko.lib.mqtt.entity.MsgNotify;
 import com.moko.support.mkgw7.entity.OtherDeviceInfo;
-import com.moko.lib.mqtt.event.DeviceModifyNameEvent;
-import com.moko.lib.mqtt.event.DeviceOnlineEvent;
-import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.greenrobot.eventbus.EventBus;
@@ -47,6 +45,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class BleManagerActivity extends BaseActivity<ActivityBleDevicesMkgw7Binding> implements BaseQuickAdapter.OnItemChildClickListener {
     private MokoDevice mMokoDevice;

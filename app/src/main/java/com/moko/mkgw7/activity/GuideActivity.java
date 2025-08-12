@@ -11,12 +11,12 @@ import android.os.Looper;
 import android.provider.Settings;
 
 import com.elvishew.xlog.XLog;
+import com.moko.lib.mqtt.event.MQTTConnectionCompleteEvent;
+import com.moko.lib.scannerui.dialog.PermissionDialog;
 import com.moko.mkgw7.R;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityGuideBinding;
-import com.moko.lib.scannerui.dialog.PermissionDialog;
 import com.moko.mkgw7.utils.Utils;
-import com.moko.lib.mqtt.event.MQTTConnectionCompleteEvent;
 import com.permissionx.guolindev.PermissionX;
 
 import org.greenrobot.eventbus.Subscribe;

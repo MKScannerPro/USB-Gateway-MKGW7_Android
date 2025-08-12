@@ -4,22 +4,19 @@ import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-
 import com.moko.ble.lib.MokoConstants;
 import com.moko.ble.lib.event.ConnectStatusEvent;
 import com.moko.ble.lib.event.OrderTaskResponseEvent;
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
+import com.moko.lib.scannerui.dialog.BottomDialog;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.mkgw7.AppConstants;
 import com.moko.mkgw7.R;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityWifiSettingsMkgw7Binding;
-import com.moko.lib.scannerui.dialog.BottomDialog;
 import com.moko.mkgw7.utils.FileUtils;
-import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.support.mkgw7.MokoSupport;
 import com.moko.support.mkgw7.OrderTaskAssembler;
 import com.moko.support.mkgw7.entity.OrderCHAR;
@@ -36,6 +33,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 public class WifiSettingsActivity extends BaseActivity<ActivityWifiSettingsMkgw7Binding> {
     private final String FILTER_ASCII = "[ -~]*";

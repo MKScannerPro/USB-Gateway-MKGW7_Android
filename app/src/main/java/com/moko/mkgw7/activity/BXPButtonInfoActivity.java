@@ -6,32 +6,29 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-
 import com.elvishew.xlog.XLog;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.moko.lib.mqtt.MQTTSupport;
+import com.moko.lib.mqtt.entity.MsgNotify;
+import com.moko.lib.mqtt.event.DeviceModifyNameEvent;
+import com.moko.lib.mqtt.event.DeviceOnlineEvent;
+import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
+import com.moko.lib.scannerui.dialog.AlertMessageDialog;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.mkgw7.AppConstants;
 import com.moko.mkgw7.R;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityBxpButtonInfoMkgw7Binding;
 import com.moko.mkgw7.db.DBTools;
-import com.moko.lib.scannerui.dialog.AlertMessageDialog;
 import com.moko.mkgw7.dialog.LedBuzzerControlDialog;
 import com.moko.mkgw7.entity.MQTTConfig;
 import com.moko.mkgw7.entity.MokoDevice;
 import com.moko.mkgw7.utils.SPUtiles;
-import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.support.mkgw7.MQTTConstants;
-import com.moko.lib.mqtt.MQTTSupport;
 import com.moko.support.mkgw7.entity.BXPButtonInfo;
-import com.moko.lib.mqtt.entity.MsgNotify;
-import com.moko.lib.mqtt.event.DeviceModifyNameEvent;
-import com.moko.lib.mqtt.event.DeviceOnlineEvent;
-import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,6 +36,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
 import java.util.Locale;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 public class BXPButtonInfoActivity extends BaseActivity<ActivityBxpButtonInfoMkgw7Binding> {
     private MokoDevice mMokoDevice;

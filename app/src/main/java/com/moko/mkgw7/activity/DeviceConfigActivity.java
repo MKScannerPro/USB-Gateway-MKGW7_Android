@@ -7,9 +7,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-
 import com.elvishew.xlog.XLog;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.google.gson.Gson;
@@ -20,25 +17,25 @@ import com.moko.ble.lib.MokoConstants;
 import com.moko.ble.lib.event.ConnectStatusEvent;
 import com.moko.ble.lib.event.OrderTaskResponseEvent;
 import com.moko.ble.lib.task.OrderTaskResponse;
+import com.moko.lib.mqtt.MQTTSupport;
+import com.moko.lib.mqtt.entity.MsgNotify;
+import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
+import com.moko.lib.scannerui.dialog.CustomDialog;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.mkgw7.AppConstants;
 import com.moko.mkgw7.R;
 import com.moko.mkgw7.activity.set.AdvertiseIBeaconActivity;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityDeviceConfigMkgw7Binding;
 import com.moko.mkgw7.db.DBTools;
-import com.moko.lib.scannerui.dialog.CustomDialog;
 import com.moko.mkgw7.entity.MQTTConfig;
 import com.moko.mkgw7.entity.MokoDevice;
 import com.moko.mkgw7.utils.SPUtiles;
-import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.support.mkgw7.MQTTConstants;
-import com.moko.lib.mqtt.MQTTSupport;
 import com.moko.support.mkgw7.MokoSupport;
 import com.moko.support.mkgw7.OrderTaskAssembler;
-import com.moko.lib.mqtt.entity.MsgNotify;
 import com.moko.support.mkgw7.entity.OrderCHAR;
 import com.moko.support.mkgw7.entity.ParamsKeyEnum;
-import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.greenrobot.eventbus.EventBus;
@@ -46,6 +43,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Type;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 public class DeviceConfigActivity extends BaseActivity<ActivityDeviceConfigMkgw7Binding> {
     private MQTTConfig mAppMqttConfig;

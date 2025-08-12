@@ -1,7 +1,5 @@
 package com.moko.support.mkgw7.task;
 
-import androidx.annotation.IntRange;
-
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.support.mkgw7.MokoSupport;
@@ -13,6 +11,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import androidx.annotation.IntRange;
 
 public class ParamsTask extends OrderTask {
     public byte[] data;

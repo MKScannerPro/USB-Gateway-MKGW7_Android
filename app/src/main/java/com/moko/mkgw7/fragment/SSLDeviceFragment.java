@@ -7,20 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.moko.lib.scannerui.dialog.BottomDialog;
+import com.moko.lib.scannerui.utils.ToastUtils;
+import com.moko.mkgw7.R;
+import com.moko.mkgw7.activity.MqttSettingsActivity;
+import com.moko.mkgw7.databinding.FragmentSslDeviceMkgw7Binding;
+import com.moko.mkgw7.utils.FileUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import com.moko.mkgw7.R;
-import com.moko.mkgw7.activity.MqttSettingsActivity;
-import com.moko.mkgw7.databinding.FragmentSslDeviceMkgw7Binding;
-import com.moko.lib.scannerui.dialog.BottomDialog;
-import com.moko.mkgw7.utils.FileUtils;
-import com.moko.lib.scannerui.utils.ToastUtils;
-
-import java.io.File;
-import java.util.ArrayList;
 
 public class SSLDeviceFragment extends Fragment {
     public static final int REQUEST_CODE_SELECT_CA = 0x10;

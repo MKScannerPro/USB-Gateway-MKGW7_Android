@@ -7,13 +7,18 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.SeekBar;
 
-import androidx.annotation.Nullable;
-
 import com.elvishew.xlog.XLog;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.moko.lib.mqtt.MQTTSupport;
+import com.moko.lib.mqtt.entity.MsgConfigResult;
+import com.moko.lib.mqtt.entity.MsgReadResult;
+import com.moko.lib.mqtt.event.DeviceOnlineEvent;
+import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
+import com.moko.lib.scannerui.dialog.BottomDialog;
+import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.mkgw7.AppConstants;
 import com.moko.mkgw7.R;
 import com.moko.mkgw7.activity.filter.DuplicateDataFilterActivity;
@@ -23,17 +28,10 @@ import com.moko.mkgw7.activity.filter.FilterRawDataSwitchActivity;
 import com.moko.mkgw7.activity.filter.UploadDataOptionActivity;
 import com.moko.mkgw7.base.BaseActivity;
 import com.moko.mkgw7.databinding.ActivityScannerUploadOptionMkgw7Binding;
-import com.moko.lib.scannerui.dialog.BottomDialog;
 import com.moko.mkgw7.entity.MQTTConfig;
 import com.moko.mkgw7.entity.MokoDevice;
 import com.moko.mkgw7.utils.SPUtiles;
-import com.moko.lib.scannerui.utils.ToastUtils;
 import com.moko.support.mkgw7.MQTTConstants;
-import com.moko.lib.mqtt.MQTTSupport;
-import com.moko.lib.mqtt.entity.MsgConfigResult;
-import com.moko.lib.mqtt.entity.MsgReadResult;
-import com.moko.lib.mqtt.event.DeviceOnlineEvent;
-import com.moko.lib.mqtt.event.MQTTMessageArrivedEvent;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,6 +41,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+
+import androidx.annotation.Nullable;
 
 public class ScannerUploadOptionActivity extends BaseActivity<ActivityScannerUploadOptionMkgw7Binding> implements SeekBar.OnSeekBarChangeListener {
     private MokoDevice mMokoDevice;
